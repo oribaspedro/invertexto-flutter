@@ -58,7 +58,7 @@ class _ConsultaCnpjPageState extends State<ConsultaCnpjPage> {
           TextField(
             controller: controller,
             decoration: InputDecoration(
-              labelText: "Digite o CNPJ para consultar (somente números e letras)",
+              labelText: "CNPJ (somente números e letras)",
               labelStyle: TextStyle(color: Colors.white),
               border: OutlineInputBorder(),
               errorText: erroValidacao,
@@ -96,12 +96,24 @@ class _ConsultaCnpjPageState extends State<ConsultaCnpjPage> {
                     );
                   default:
                     if(snapshot.hasError) {
+                      String mensagemErro = "Ocorreu um erro inesperado";
                       final erro = snapshot.error.toString();
-                      final json = jsonDecode(erro.substring(erro.indexOf('{')));
+
+                      try {
+                        if(erro.contains('{')) {
+                          final json = jsonDecode(erro.substring(erro.indexOf('{')));
+                          mensagemErro = json["message"] ?? mensagemErro;
+                        } else {
+                          mensagemErro = "Falha na conexão com o servidor";
+                        }
+                      } catch(e) {
+                        mensagemErro = "Falha na conexão com o servidor";
+                      }
                       return Center(
                         child: Text(
-                          json["message"],
-                          style: TextStyle(color: Colors.white),
+                          mensagemErro,
+                          style: TextStyle(color: Colors.red),
+                          textAlign: TextAlign.center,
                         ),
                       );
                     } else {

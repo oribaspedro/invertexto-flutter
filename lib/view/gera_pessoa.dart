@@ -69,8 +69,9 @@ class _GeraPessoaPageState extends State<GeraPessoaPage> {
                         if (snapshot.hasError) {
                           return Center(
                             child: Text(
-                              'Erro ao buscar os dados.',
-                              style: TextStyle(color: Colors.white),
+                              'Não foi possível estabelecer uma conexão com o servidor',
+                              style: TextStyle(color: Colors.red),
+                              textAlign: TextAlign.center,
                             ),
                           );
                         } else {

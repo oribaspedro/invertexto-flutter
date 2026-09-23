@@ -56,7 +56,7 @@ class _PorExtensoPageState extends State<PorExtensoPage> {
           TextField(
             controller: controller,
             decoration: InputDecoration(
-              labelText: "Digite um numero",
+              labelText: "Numero",
               labelStyle: TextStyle(color: Colors.white),
               errorText: erroValidacao,
               border: OutlineInputBorder(),
@@ -97,12 +97,24 @@ class _PorExtensoPageState extends State<PorExtensoPage> {
                     );
                   default:
                     if(snapshot.hasError) {
+                      String mensagemErro = "Ocorreu um erro inesperado";
                       final erro = snapshot.error.toString();
-                      final json = jsonDecode(erro.substring(erro.indexOf('{')));
+
+                      try {
+                        if(erro.contains('{')) {
+                          final json = jsonDecode(erro.substring(erro.indexOf('{')));
+                          mensagemErro = json["message"] ?? mensagemErro;
+                        } else {
+                          mensagemErro = "Nao foi possivel estabelecer uma conexao com o servidor";
+                        }
+                      } catch(e) {
+                        mensagemErro = "Falha na conexão com o servidor";
+                      }
                       return Center(
                         child: Text(
-                          json["message"],
-                          style: TextStyle(color: Colors.white),
+                          mensagemErro,
+                          style: TextStyle(color: Colors.red),
+                          textAlign: TextAlign.center,
                         ),
                       );
                     } else {

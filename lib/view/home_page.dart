@@ -39,7 +39,7 @@ class HomePage extends StatelessWidget {
                 ),
                 SizedBox(width: 30),
                 Text(
-                  'Por Extenso',
+                  'Por extenso',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20.0
@@ -60,7 +60,7 @@ class HomePage extends StatelessWidget {
             child: Row(
               children: [
                 Icon(
-                  Icons.edit,
+                  Icons.maps_home_work,
                   color: Colors.white,
                   size: 50.0,
                 ),
@@ -87,7 +87,7 @@ class HomePage extends StatelessWidget {
             child: Row(
               children: [
                 Icon(
-                  Icons.edit,
+                  Icons.mail,
                   color: Colors.white,
                   size: 50.0,
                 ),
@@ -114,7 +114,7 @@ class HomePage extends StatelessWidget {
             child: Row(
               children: [
                 Icon(
-                  Icons.edit,
+                  Icons.work,
                   color: Colors.white,
                   size: 50.0,
                 ),
@@ -141,7 +141,7 @@ class HomePage extends StatelessWidget {
             child: Row(
               children: [
                 Icon(
-                  Icons.edit,
+                  Icons.person,
                   color: Colors.white,
                   size: 50.0,
                 ),

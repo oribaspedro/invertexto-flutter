@@ -60,7 +60,7 @@ class _BuscaCepPageState extends State<BuscaCepPage> {
             TextField(
               controller: controller,
               decoration: InputDecoration(
-                labelText: "Digite o CEP (somente números)",
+                labelText: "CEP (somente números)",
                 labelStyle: TextStyle(color: Colors.white),
                 border: OutlineInputBorder(),
                 errorText: erroValidacao,
@@ -101,12 +101,24 @@ class _BuscaCepPageState extends State<BuscaCepPage> {
                       );
                     default:
                       if(snapshot.hasError) {
+                        String mensagemErro = "Ocorreu um erro inesperado";
                         final erro = snapshot.error.toString();
-                        final json = jsonDecode(erro.substring(erro.indexOf('{')));
+
+                        try {
+                          if(erro.contains('{')) {
+                            final json = jsonDecode(erro.substring(erro.indexOf('{')));
+                            mensagemErro = json["message"] ?? mensagemErro;
+                          } else {
+                            mensagemErro = "Nao foi possivel estabelecer uma conexao com o servidor";
+                          }
+                        } catch(e) {
+                          mensagemErro = "Falha na conexão com o servidor";
+                        }
                         return Center(
                           child: Text(
-                            json["message"],
-                            style: TextStyle(color: Colors.white),
+                            mensagemErro,
+                            style: TextStyle(color: Colors.red),
+                            textAlign: TextAlign.center,
                           ),
                         );
                       } else {
